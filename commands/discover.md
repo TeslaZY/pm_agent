@@ -20,17 +20,7 @@ If no `Product-Spec.md`:
 Error: No product found. Run /pm:init first.
 ```
 
-### 2. Invoke Requirement Discovery Skill
-
-Call the `requirement-discovery` skill with current product context:
-
-```
-Invoke skill: requirement-discovery
-Context: [Product-Spec.md content]
-Mode: Interactive discovery
-```
-
-### 3. Discovery Session
+### 2. Discovery Session
 
 Conduct interactive discovery through questions:
 
@@ -79,27 +69,101 @@ For each feature area:
 4. **Adoption**: How will you measure adoption?
 ```
 
-### 4. Generate User Stories
+### 3. Generate User Stories
 
-Based on discovery, generate user stories in the format:
+Based on discovery, generate user stories using the standard format:
 
 ```markdown
-## User Story: [ID]
+## US-[ID]: [Story Title]
 
-**As a** [user type]
-**I want** [goal]
-**So that** [benefit]
+**As a** [type of user]
+**I want** [goal/desire]
+**So that** [benefit/value]
+
+### Context
+[Brief background or situation]
 
 ### Acceptance Criteria
-- [ ] Given [context], when [action], then [outcome]
-- [ ] Given [context], when [action], then [outcome]
+- [ ] Given [precondition], when [action], then [expected result]
+- [ ] Given [precondition], when [action], then [expected result]
 
-### Priority: [Must/Should/Could/Won't]
-### Effort Estimate: [S/M/L/XL]
-### Dependencies: [List of story IDs]
+### Priority
+- [ ] Must Have (MVP)
+- [ ] Should Have
+- [ ] Could Have
+- [ ] Won't Have
+
+### Effort Estimate
+- [ ] Small (1-2 days)
+- [ ] Medium (3-5 days)
+- [ ] Large (1-2 weeks)
+- [ ] Extra Large (2+ weeks)
+
+### Dependencies
+- [List of related story IDs]
 ```
 
-### 5. Update Documents
+### 4. Prioritization (MoSCoW)
+
+Use MoSCoW prioritization:
+
+- **Must Have**: Critical for MVP, non-negotiable
+- **Should Have**: Important but not critical
+- **Could Have**: Nice to have if time permits
+- **Won't Have**: Explicitly out of scope
+
+### 5. INVEST Criteria
+
+Ensure user stories are:
+
+- **I**ndependent - Can be developed separately
+- **N**egotiable - Details can be discussed
+- **V**aluable - Provides value to users
+- **E**stimable - Can be estimated for effort
+- **S**mall - Can be completed in one sprint
+- **T**estable - Has clear acceptance criteria
+
+### 6. Common Story Patterns
+
+#### CRUD Operations
+
+```markdown
+## US-XXX: Create [Entity]
+**As a** [user]
+**I want** to create a new [entity]
+**So that** [benefit]
+
+## US-XXX: Read [Entity]
+**As a** [user]
+**I want** to view [entity] details
+**So that** [benefit]
+
+## US-XXX: Update [Entity]
+**As a** [user]
+**I want** to modify [entity] information
+**So that** [benefit]
+
+## US-XXX: Delete [Entity]
+**As a** [user]
+**I want** to remove [entity]
+**So that** [benefit]
+```
+
+#### Search/Filter
+
+```markdown
+## US-XXX: Search [Entities]
+**As a** [user]
+**I want** to search for [entities] by [criteria]
+**So that** I can quickly find what I need
+
+### Acceptance Criteria
+- [ ] Given [entities exist], when I search by [criteria], then matching results are displayed
+- [ ] Given no matches, when I search, then I see "no results" message
+- [ ] Given many results, when I search, then results are paginated
+```
+
+### 7. Update Documents
 
 #### Product-Spec.md
 
@@ -130,7 +194,7 @@ Add discovery tasks:
 **Next**: Run /pm:analyze for deep analysis
 ```
 
-### 6. Requirements Pool Summary
+### 8. Requirements Pool Summary
 
 Generate a summary of the requirements pool:
 
@@ -157,7 +221,7 @@ Generate a summary of the requirements pool:
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
-### 7. Commit Changes
+### 9. Commit Changes
 
 ```bash
 git add .
@@ -170,10 +234,13 @@ git commit -m "Discover: Collected [X] user stories
 "
 ```
 
-## Important Rules
+## Best Practices
 
-1. **Be interactive** - Discovery is a conversation, not a form
-2. **Dig deeper** - Use "why" and "tell me more" liberally
-3. **Validate understanding** - Repeat back what you hear
+1. **Listen actively** - Let the user talk, then probe deeper
+2. **Ask "why"** - Understand the root cause, not just symptoms
+3. **Validate** - Repeat back what you heard
 4. **Stay focused** - Keep scope in mind
-5. **Document everything** - Every insight matters
+5. **Document everything** - Every insight is valuable
+6. **Use concrete examples** - Abstract requirements lead to confusion
+7. **Be interactive** - Discovery is a conversation, not a form
+8. **Dig deeper** - Use "why" and "tell me more" liberally

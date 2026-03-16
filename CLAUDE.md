@@ -47,29 +47,17 @@ pm-agent/
 ├── prompts/                   # Session prompts
 │   ├── init-prompt.md         # Init phase guidance
 │   └── discover-prompt.md     # Discovery phase guidance
-├── commands/                  # 5 user commands
-│   ├── init.md
-│   ├── discover.md
-│   ├── analyze.md
-│   ├── design.md
-│   └── status.md
-├── skills/                    # Core skill definitions
-│   ├── requirement-discovery/ # User story generation
-│   ├── tough-questioning/     # Critical analysis
-│   ├── prd-writer/            # PRD generation
-│   └── prototype-designer/    # Pencil MCP integration
+├── commands/                  # 5 user commands (self-contained)
+│   ├── init.md                # Project initialization
+│   ├── discover.md            # Requirement discovery & user stories
+│   ├── analyze.md             # Deep analysis & tough questioning
+│   ├── design.md              # PRD generation & prototype design
+│   └── status.md              # Project status review
 └── docs/                      # Documentation
     └── templates/             # Task list & progress templates
 ```
 
-## Skills
-
-| Skill | Purpose | Trigger |
-|-------|---------|---------|
-| requirement-discovery | Collect user needs, generate stories | `/pm:discover` |
-| tough-questioning | Challenge assumptions, find gaps | `/pm:analyze` |
-| prd-writer | Generate comprehensive PRD | `/pm:design` |
-| prototype-designer | Create interactive prototypes | `/pm:design` |
+每个 command 文件都是自包含的，包含完整的工作流程和能力定义。
 
 ## Dependencies
 

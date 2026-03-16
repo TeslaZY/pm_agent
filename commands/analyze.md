@@ -7,6 +7,16 @@ disable-model-invocation: true
 
 This command performs deep analysis of collected requirements. It uses tough questioning to find gaps, identifies dependencies, and assesses risks.
 
+## Philosophy
+
+**"The best product managers are the toughest critics of their own ideas."**
+
+This command applies the "毒舌产品经理" (Tough-talking PM) approach:
+- Challenge every assumption
+- Find gaps before development
+- Think about edge cases
+- Consider scale and failure
+
 ## Workflow
 
 ### 1. Pre-flight Check
@@ -20,21 +30,84 @@ If requirements not found:
 Error: No requirements to analyze. Run /pm:discover first.
 ```
 
-### 2. Invoke Tough Questioning Skill
+### 2. Assumption Challenge
 
-Call the `tough-questioning` skill:
+For every stated requirement, ask:
 
+```markdown
+## Assumption Audit
+
+**Stated Assumption**: [What is assumed to be true]
+
+**Challenging Questions**:
+1. What if this assumption is wrong?
+2. How would the product behave differently?
+3. What evidence supports this assumption?
+4. Under what conditions would this fail?
+
+**Risk Level**: [High/Medium/Low]
+**Mitigation**: [How to handle if assumption is wrong]
 ```
-Invoke skill: tough-questioning
-Context: [Product-Spec.md content]
-Mode: Critical analysis
+
+### 3. Edge Case Discovery
+
+```markdown
+## Edge Case Questions
+
+1. What happens if the user enters [unexpected input]?
+2. What if the network is slow or unavailable?
+3. What if there are 10x more users than expected?
+4. What if the user tries to do [impossible action]?
+5. What if two users try to modify the same data?
+6. What happens at midnight on New Year's Eve?
+7. What if the user's session expires mid-action?
+8. What if the user has [accessibility need]?
 ```
 
-### 3. Critical Analysis Framework
+### 4. Scalability Questions
 
-#### Gap Analysis
+```markdown
+## Scale Scenarios
 
-For each user story, ask:
+Current: [Expected scale]
+Future: [10x scale]
+
+Questions:
+1. Will this work with 10x data volume?
+2. Will response time be acceptable?
+3. Will the UI still be usable?
+4. Will background processes complete in time?
+5. Will storage costs be acceptable?
+```
+
+### 5. Security & Privacy
+
+```markdown
+## Security Checklist
+
+1. Who should/shouldn't have access?
+2. What sensitive data is involved?
+3. How is data protected in transit/at rest?
+4. What audit trails are needed?
+5. What happens if credentials are compromised?
+6. Are there compliance requirements (GDPR, HIPAA)?
+```
+
+### 6. Business Logic Gaps
+
+```markdown
+## Business Rule Questions
+
+1. What happens if [business rule] is violated?
+2. Who has the authority to override?
+3. What are the consequences of [action]?
+4. How does this affect billing/reporting?
+5. What if [external system] is unavailable?
+```
+
+### 7. Gap Analysis
+
+For each user story:
 
 ```markdown
 ## Gap Analysis: [Story ID]
@@ -53,9 +126,18 @@ For each user story, ask:
 ### Identified Gaps
 - [Gap 1]
 - [Gap 2]
+
+### Gap Analysis Matrix
+
+| Aspect | Documented | Gaps Found | Risk | Action |
+|--------|------------|------------|------|--------|
+| User Flow | ✓ | [gap] | High | [action] |
+| Error Handling | ✗ | [gap] | Med | [action] |
+| Edge Cases | ✗ | [gap] | Low | [action] |
+| Scale | ✓ | [gap] | Med | [action] |
 ```
 
-#### Dependency Mapping
+### 8. Dependency Mapping
 
 ```markdown
 ## Dependency Map
@@ -63,38 +145,47 @@ For each user story, ask:
 ### User Story Dependencies
 [Story A] → requires → [Story B]
 [Story C] → blocked by → [Story D]
+[Story E] → parallel with → [Story F]
 
 ### External Dependencies
-- Third-party: [Service/API]
-- Infrastructure: [Requirements]
-- Data: [Sources needed]
-
-### Circular Dependencies
-- [Identify any cycles]
+| Dependency | Type | Status | Risk |
+|------------|------|--------|------|
+| [API Name] | Third-party | Available | Low |
+| [Service] | Infrastructure | TBD | High |
 ```
 
-#### Risk Assessment
+### 9. Risk Assessment
 
 ```markdown
 ## Risk Assessment
 
 ### Technical Risks
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| [Risk 1] | High/Med/Low | High/Med/Low | [Strategy] |
+| ID | Risk | Probability | Impact | Mitigation | Owner |
+|----|------|-------------|--------|------------|-------|
+| TR-001 | [Risk] | H/M/L | H/M/L | [Strategy] | [Name] |
 
 ### Business Risks
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| [Risk 1] | High/Med/Low | High/Med/Low | [Strategy] |
+| ID | Risk | Probability | Impact | Mitigation | Owner |
+|----|------|-------------|--------|------------|-------|
+| BR-001 | [Risk] | H/M/L | H/M/L | [Strategy] | [Name] |
 
 ### User Experience Risks
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| [Risk 1] | High/Med/Low | High/Med/Low | [Strategy] |
+| ID | Risk | Probability | Impact | Mitigation | Owner |
+|----|------|-------------|--------|------------|-------|
+| UR-001 | [Risk] | H/M/L | H/M/L | [Strategy] | [Name] |
+
+### Risk Template
+
+**Risk**: [Risk Name]
+**Description**: [What could go wrong]
+**Probability**: [High/Medium/Low]
+**Impact**: [High/Medium/Low]
+**Mitigation**: [How to prevent or handle]
+**Contingency**: [What to do if it happens]
+**Owner**: [Who is responsible]
 ```
 
-### 4. User Persona Refinement
+### 10. User Persona Refinement
 
 Deep dive into each persona:
 
@@ -124,7 +215,7 @@ Deep dive into each persona:
 "[Typical thing this persona would say]"
 ```
 
-### 5. Functional Requirements Specification
+### 11. Functional Requirements Specification
 
 ```markdown
 ## Functional Requirements
@@ -149,9 +240,12 @@ Deep dive into each persona:
 
 **Error Handling**:
 - [Error case 1]: [How to handle]
+
+**Acceptance Criteria**:
+- [ ] Given [context], when [action], then [result]
 ```
 
-### 6. Non-Functional Requirements
+### 12. Non-Functional Requirements
 
 ```markdown
 ## Non-Functional Requirements
@@ -165,19 +259,24 @@ Deep dive into each persona:
 - Authentication: [Requirement]
 - Authorization: [Requirement]
 - Data protection: [Requirement]
+- Compliance: [GDPR/HIPAA/etc.]
 
 ### Reliability
-- Uptime: [Requirement]
-- Backup: [Requirement]
-- Recovery: [Requirement]
+- Uptime: [99.9% etc.]
+- Backup: [Frequency and retention]
+- Recovery: [RTO/RPO]
 
 ### Usability
 - Learning curve: [Requirement]
-- Accessibility: [Requirement]
-- Internationalization: [Requirement]
+- Accessibility: [WCAG level]
+- Internationalization: [Languages]
+
+### Scalability
+- Data growth: [Expected growth]
+- User growth: [Expected growth]
 ```
 
-### 7. Update Documents
+### 13. Update Documents
 
 #### Product-Spec.md
 
@@ -199,7 +298,7 @@ Update sections:
 }
 ```
 
-### 8. Analysis Summary
+### 14. Analysis Summary
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
@@ -224,7 +323,7 @@ Update sections:
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
-### 9. Commit Changes
+### 15. Commit Changes
 
 ```bash
 git add .
@@ -237,10 +336,24 @@ git commit -m "Analyze: Completed requirement analysis
 "
 ```
 
-## Important Rules
+## Best Practices
 
-1. **Be critical** - Find the gaps before development
-2. **Challenge assumptions** - Every "obvious" thing needs scrutiny
-3. **Think edge cases** - What could possibly go wrong?
-4. **Consider scale** - Will this work with 10x users?
-5. **Document risks** - Unknowns are risks too
+1. **Be constructive** - Challenge to improve, not to criticize
+2. **Document everything** - Every question and answer matters
+3. **Think like a user** - Consider all user types
+4. **Think like an attacker** - What could go wrong?
+5. **Think like operations** - How will this be maintained?
+6. **Prioritize by impact** - Not all gaps are equal
+7. **Be critical** - Find the gaps before development
+8. **Challenge assumptions** - Every "obvious" thing needs scrutiny
+9. **Think edge cases** - What could possibly go wrong?
+10. **Consider scale** - Will this work with 10x users?
+
+## Tone Guidelines
+
+- Direct but not rude
+- Challenging but supportive
+- Critical but constructive
+- Thorough but efficient
+
+**Remember: The goal is to find problems NOW, not during development or after launch.**
